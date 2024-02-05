@@ -2,12 +2,15 @@
 
 # Node.js
 node_modules/
+image/
 
 # Fichiers de build
 build/
 dist/
 *.css
 *.map
+*.pdf
+*.png
 
 # Fichiers d'environnement
 .env.local

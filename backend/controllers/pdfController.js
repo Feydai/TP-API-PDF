@@ -12,9 +12,19 @@ exports.generatePDF = (req, res) => {
 exports.updatePDF = (req, res) => {
   try {
     const doc = new PDFDocument();
-    const value = req.body.text;
+    const text = req.body.text;
+    const imagePath = req.body.imagePath;
+    const email = req.body.email;
+    const phoneNumber = req.body.phoneNumber;
     doc.pipe(fs.createWriteStream("test.pdf"));
-    doc.text(value);
+    doc.text(text);
+    doc.image(imagePath, {
+      fit: [250, 300],
+      align: "center",
+      valign: "center",
+    });
+    doc.text(email);
+    doc.text(phoneNumber);
     doc.end();
     res.status(200).send("PDF generated!");
   } catch (error) {
