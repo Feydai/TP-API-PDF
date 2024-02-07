@@ -3,6 +3,7 @@ module.exports = (req, doc) => {
         text: req.body.text,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
+        imagePath: req.body.imagePath,
         doc: doc,
     };
 };
