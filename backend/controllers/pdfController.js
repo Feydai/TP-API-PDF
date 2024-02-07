@@ -18,11 +18,11 @@ exports.updatePDF = (req, res) => {
     const phoneNumber = req.body.phoneNumber;
     doc.pipe(fs.createWriteStream("test.pdf"));
     doc.text(text);
-    doc.image(imagePath, {
-      fit: [250, 300],
-      align: "center",
-      valign: "center",
-    });
+    // doc.image(imagePath, {
+    //   fit: [250, 300],
+    //   align: "center",
+    //   valign: "center",
+    // });
     doc.text(email);
     doc.text(phoneNumber);
     doc.end();
