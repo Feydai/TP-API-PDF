@@ -2,7 +2,12 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const { Buffer } = require("buffer");
 const createPdfData = require("../data/pdfData");
-const { headerProfile, imageProfile } = require("../utils/bodyPdf");
+const {
+  headerProfile,
+  imageProfile,
+  contactProfile,
+  informationProfil,
+} = require("../utils/bodyPdf");
 
 exports.updatePDF = (req, res) => {
   try {
@@ -13,10 +18,19 @@ exports.updatePDF = (req, res) => {
     // header(doc, text);
     // addText(updateDataPdf.doc, updateDataPdf.text, 10, 500, 500);
     // addImage(updateDataPdf.doc, req.body.imagePath, 500, 500);
-    headerProfile(doc, updateDataPdf.text);
+    headerProfile(doc, updateDataPdf.text, updateDataPdf.firstName);
     imageProfile(doc, updateDataPdf.imagePath);
+    contactProfile(
+      doc,
+      updateDataPdf.phoneNumber,
+      updateDataPdf.email,
+      updateDataPdf.address,
+      updateDataPdf.city,
+      updateDataPdf.postalCode
+    );
+    informationProfil(doc);
     // addText(doc, email);
-    // addText(doc, phoneNumber);
+    // addText(doc, updateDataPdf.phoneNumber);
     doc.end();
     res.status(200).send("PDF generated!");
   } catch (error) {

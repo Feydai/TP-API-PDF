@@ -1,5 +1,5 @@
-exports.addText = (doc, text, fontSize, x, y, color) => {
-  doc.fontSize(fontSize).text(text, x, y).fill(color);
+exports.addText = (doc, text, font, fontSize, x, y, color) => {
+  doc.font(font).fontSize(fontSize).text(text, x, y).fill(color);
 };
 
 exports.addImage = (doc, imagePath, x, y, radius) => {
