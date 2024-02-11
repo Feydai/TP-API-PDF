@@ -10,6 +10,7 @@ function PDFForm() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [skills, setSkills] = useState([{ name: "", description: "" }]);
+  const [experiences, setExperiences] = useState([{ title: "", test: "" }]);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -22,8 +23,8 @@ function PDFForm() {
     reader.readAsDataURL(file);
   };
 
-  const handleSkillChange = (index, event, field, value) => {
-    const values = [...value];
+  const handleSkillChange = (index, event, field) => {
+    const values = [...skills];
     values[index][field] = event.target.value;
     setSkills(values);
   };
@@ -32,10 +33,26 @@ function PDFForm() {
     setSkills([...skills, { id: Math.random(), name: "", description: "" }]);
   };
 
-  const handleRemoveSkill = (index, i) => {
-    const values = [...i];
+  const handleRemoveSkill = (index) => {
+    const values = [...experiences];
     values.splice(index, 1);
     setSkills(values);
+  };
+
+  const handleExperienceChange = (index, event, field) => {
+    const values = [...experiences];
+    values[index][field] = event.target.value;
+    setExperiences(values);
+  };
+
+  const handleAddExperience = () => {
+    setExperiences([...experiences, { id: Math.random(), title: "", test: "" }]);
+  };
+
+  const handleRemoveExperience = (index) => {
+    const values = [...experiences];
+    values.splice(index, 1);
+    setExperiences(values);
   };
 
   const handleSubmit = async (event) => {
@@ -56,6 +73,7 @@ function PDFForm() {
         email,
         phoneNumber,
         skills,
+        experiences,
       }),
     });
 
@@ -77,7 +95,7 @@ function PDFForm() {
         />
       </label>
       <label>
-        Text:
+        last name:
         <input
           type="text"
           value={text}
@@ -135,7 +153,7 @@ function PDFForm() {
             <input
               type="text"
               value={skill.name}
-              onChange={(event) => handleSkillChange(index, event, "name", skills)}
+              onChange={(event) => handleSkillChange(index, event, "name")}
             />
           </label>
           <label>
@@ -144,14 +162,42 @@ function PDFForm() {
               type="text"
               value={skill.description}
               onChange={(event) =>
-                handleSkillChange(index, event, "description", skills)
+                handleSkillChange(index, event, "description")
               }
             />
           </label>
           <button type="button" onClick={handleAddSkill}>
             Add Skill
           </button>
-          <button type="button" onClick={() => handleRemoveSkill(index, skills)}>
+          <button type="button" onClick={() => handleRemoveSkill(index)}>
+            Remove
+          </button>
+        </div>
+      ))}
+      {experiences.map((experience, index) => (
+        <div key={experience.id}>
+          <label>
+            Experiences {index + 1}:
+            <input
+              type="text"
+              value={experience.title}
+              onChange={(event) =>
+                handleExperienceChange(index, event, "title")
+              }
+            />
+          </label>
+          <label>
+            Description:
+            <input
+              type="text"
+              value={experience.test}
+              onChange={(event) => handleExperienceChange(index, event, "test")}
+            />
+          </label>
+          <button type="button" onClick={handleAddExperience}>
+            Add Skill
+          </button>
+          <button type="button" onClick={() => handleRemoveExperience(index)}>
             Remove
           </button>
         </div>

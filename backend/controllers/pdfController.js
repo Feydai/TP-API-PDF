@@ -27,6 +27,7 @@ exports.updatePDF = (req, res) => {
       updateDataPdf.postalCode
     );
     addSkills(doc, updateDataPdf.skills);
+    addExperience(doc, updateDataPdf.experiences);
     doc.end();
     res.status(200).send("PDF generated!");
   } catch (error) {

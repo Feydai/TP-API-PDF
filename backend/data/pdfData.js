@@ -9,7 +9,7 @@ module.exports = (req, doc) => {
     postalCode: req.body.postalCode,
     imagePath: req.body.imagePath,
     skills: req.body.skills,
-    experience: req.body.experience,
+    experiences: req.body.experiences,
     doc: doc,
   };
 };
