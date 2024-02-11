@@ -9,6 +9,7 @@ function PDFForm() {
   const [imageData, setImageData] = useState(null);
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [skills, setSkills] = useState([{ name: "", description: "" }]);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -19,6 +20,22 @@ function PDFForm() {
     };
 
     reader.readAsDataURL(file);
+  };
+
+  const handleSkillChange = (index, event, field, value) => {
+    const values = [...value];
+    values[index][field] = event.target.value;
+    setSkills(values);
+  };
+
+  const handleAddSkill = () => {
+    setSkills([...skills, { id: Math.random(), name: "", description: "" }]);
+  };
+
+  const handleRemoveSkill = (index, i) => {
+    const values = [...i];
+    values.splice(index, 1);
+    setSkills(values);
   };
 
   const handleSubmit = async (event) => {
@@ -38,6 +55,7 @@ function PDFForm() {
         imagePath: imageData,
         email,
         phoneNumber,
+        skills,
       }),
     });
 
@@ -110,6 +128,34 @@ function PDFForm() {
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
       </label>
+      {skills.map((skill, index) => (
+        <div key={skill.id}>
+          <label>
+            Skill {index + 1}:
+            <input
+              type="text"
+              value={skill.name}
+              onChange={(event) => handleSkillChange(index, event, "name", skills)}
+            />
+          </label>
+          <label>
+            Description:
+            <input
+              type="text"
+              value={skill.description}
+              onChange={(event) =>
+                handleSkillChange(index, event, "description", skills)
+              }
+            />
+          </label>
+          <button type="button" onClick={handleAddSkill}>
+            Add Skill
+          </button>
+          <button type="button" onClick={() => handleRemoveSkill(index, skills)}>
+            Remove
+          </button>
+        </div>
+      ))}
       <button type="submit">Generate PDF</button>
     </form>
   );

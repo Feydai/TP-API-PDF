@@ -6,7 +6,8 @@ const {
   headerProfile,
   imageProfile,
   contactProfile,
-  informationProfil,
+  addSkills,
+  addExperience,
 } = require("../utils/bodyPdf");
 
 exports.updatePDF = (req, res) => {
@@ -15,9 +16,6 @@ exports.updatePDF = (req, res) => {
     const updateDataPdf = createPdfData(req, doc);
 
     doc.pipe(fs.createWriteStream("test.pdf"));
-    // header(doc, text);
-    // addText(updateDataPdf.doc, updateDataPdf.text, 10, 500, 500);
-    // addImage(updateDataPdf.doc, req.body.imagePath, 500, 500);
     headerProfile(doc, updateDataPdf.text, updateDataPdf.firstName);
     imageProfile(doc, updateDataPdf.imagePath);
     contactProfile(
@@ -28,9 +26,7 @@ exports.updatePDF = (req, res) => {
       updateDataPdf.city,
       updateDataPdf.postalCode
     );
-    informationProfil(doc);
-    // addText(doc, email);
-    // addText(doc, updateDataPdf.phoneNumber);
+    addSkills(doc, updateDataPdf.skills);
     doc.end();
     res.status(200).send("PDF generated!");
   } catch (error) {

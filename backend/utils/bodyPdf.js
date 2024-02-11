@@ -11,6 +11,24 @@ function getTextWidth(text, fontSize) {
   return text.length * fontSize * 0.5;
 }
 
+function splitTextIntoLines(text, maxLength) {
+  const words = text.split(" ");
+  const lines = [];
+  let line = "";
+
+  words.forEach((word) => {
+    if ((line + word).length <= maxLength) {
+      line += ` ${word}`;
+    } else {
+      lines.push(line);
+      line = word;
+    }
+  });
+
+  lines.push(line);
+  return lines;
+}
+
 function addContactInfoAdress(doc, iconPath, x, y, text1, text2, text3) {
   createCubeBig(doc, x, y);
   doc.image(iconPath, x + 3, y + 2, { width: 15, height: 15 });
@@ -75,7 +93,28 @@ exports.contactProfile = (
   );
 };
 
-exports.informationProfil = (doc) => {
+exports.addSkills = (doc, skills) => {
   drawSquare(doc, 0, 762, 2480, 30, "#809ba8");
   drawSquare(doc, 60, 390, 200, 550, "#f5f0ea");
+  skills.forEach((skill, index) => {
+    const y = 420 + index * 60;
+    createCube(doc, 70, y);
+    doc.font("Courier").fontSize(20).fillColor("black").text(skill.name, 95, y);
+
+    // Add description with automatic line breaks
+    doc.font("Courier").fontSize(16).fillColor("black").text(skill.description, 95, y + 30, { width: 140 });
+  });
 };
+
+exports.addExperience = (doc,Experience) => {
+  drawSquare(doc, 0, 762, 2480, 30, "#809ba8");
+  drawSquare(doc, 60, 390, 200, 550, "#f5f0ea");
+  Experience.forEach((experience, index) => {
+    const y = 420 + index * 60;
+    createCube(doc, 70, y);
+    doc.font("Courier").fontSize(20).fillColor("black").text(experience.name, 95, y);
+
+    // Add description with automatic line breaks
+    doc.font("Courier").fontSize(16).fillColor("black").text(experience.description, 95, y + 30, { width: 140 });
+  });
+}

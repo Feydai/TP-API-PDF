@@ -8,6 +8,8 @@ module.exports = (req, doc) => {
     city: req.body.city,
     postalCode: req.body.postalCode,
     imagePath: req.body.imagePath,
+    skills: req.body.skills,
+    experience: req.body.experience,
     doc: doc,
   };
 };
