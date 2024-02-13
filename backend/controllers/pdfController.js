@@ -1,6 +1,6 @@
+const mysql = require('mysql');
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
-const { Buffer } = require("buffer");
 const createPdfData = require("../data/pdfData");
 const {
   headerProfile,
@@ -10,12 +10,28 @@ const {
   addExperience,
 } = require("../utils/bodyPdf");
 
+let connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '1364508042Leo@!',
+  database: 'pdf_database'
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error('An error occurred while connecting to the MySQL server:', err);
+  } else {
+    console.log('Connected to the MySQL server.');
+  }
+});
+
 exports.updatePDF = (req, res) => {
   try {
     const doc = new PDFDocument();
     const updateDataPdf = createPdfData(req, doc);
+    const pdfPath = "test.pdf";
 
-    doc.pipe(fs.createWriteStream("test.pdf"));
+    doc.pipe(fs.createWriteStream(pdfPath));
     headerProfile(doc, updateDataPdf.text, updateDataPdf.firstName);
     imageProfile(doc, updateDataPdf.imagePath);
     contactProfile(
@@ -29,7 +45,17 @@ exports.updatePDF = (req, res) => {
     addSkills(doc, updateDataPdf.skills);
     addExperience(doc, updateDataPdf.experiences);
     doc.end();
-    res.status(200).send("PDF generated!");
+
+    let post = {pdf_name: pdfPath, pdf_path: `/path/to/${pdfPath}`};
+    let query = connection.query('INSERT INTO pdf_info SET ?', post, (err, result) => {
+      if (err) {
+        console.error('An error occurred while saving the PDF info to the database:', err);
+        res.status(500).send("Error saving PDF info to the database");
+      } else {
+        console.log('PDF info saved to database');
+        res.status(200).send("PDF generated and info saved to database!");
+      }
+    });
   } catch (error) {
     console.error("An error occurred while generating the PDF:", error);
     res.status(500).send("Error generating PDF");

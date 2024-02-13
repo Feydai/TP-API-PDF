@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './generatePdf.css'
 
 function PDFForm() {
   const [firstName, setFirstName] = useState("");
