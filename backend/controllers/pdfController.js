@@ -15,7 +15,10 @@ exports.updatePDF = (req, res) => {
   try {
     const doc = new PDFDocument();
     const updateDataPdf = createPdfData(req, doc);
-    const pdfPath = "test.pdf";
+    const pdfName = `CV-${Math.floor(Math.random() * 1000000)}.pdf`;
+    const dirPath = '/home/leo/W2-HETIC/TD/API/TP-API-PDF/backend/pdfs';
+    fs.mkdirSync(dirPath, { recursive: true });
+    const pdfPath = `${dirPath}/${pdfName}`;
 
     doc.pipe(fs.createWriteStream(pdfPath));
     headerProfile(doc, updateDataPdf.text, updateDataPdf.firstName);
@@ -32,8 +35,8 @@ exports.updatePDF = (req, res) => {
     addExperience(doc, updateDataPdf.experiences);
     doc.end();
 
-    let post = {pdf_name: pdfPath, pdf_path: `/path/to/${pdfPath}`};
-    let query = connection.query('INSERT INTO pdf_info SET ?', post, (err, result) => {
+    const post = {pdf_name: pdfName, pdf_path: pdfPath};
+    const query = connection.query('INSERT INTO pdf_info SET ?', post, (err, result) => {
       if (err) {
         console.error('An error occurred while saving the PDF info to the database:', err);
         res.status(500).send("Error saving PDF info to the database");
