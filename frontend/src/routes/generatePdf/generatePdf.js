@@ -53,10 +53,7 @@ function PDFForm() {
   };
 
   const handleAddExperience = () => {
-    setExperiences([
-      ...experiences,
-      { id: Math.random(), title: "", test: "" },
-    ]);
+    setExperiences([ ...experiences,{ id: Math.random(), title: "", test: "" },]);
   };
 
   const handleRemoveExperience = (index) => {
@@ -176,7 +173,7 @@ function PDFForm() {
           index={index}
           handleExperienceChange={handleExperienceChange}
           handleRemoveExperience={handleRemoveExperience}
-          hanfleAddExperience={handleAddExperience}
+          handleAddExperience={handleAddExperience}
         />
       ))}
       {pdf.pdf_name && (
