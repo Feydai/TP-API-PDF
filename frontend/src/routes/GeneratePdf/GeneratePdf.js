@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Skill from "../../components/Skills/Skill";
 import Experience from "../../components/Experience/Experience";
-import "./generatePdf.css";
 import Button from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
+import FormField from "../../components/FormField/FormField";
 
 function PDFForm() {
   const PDF_URL = "http://localhost:5000/pdf";
@@ -53,7 +52,10 @@ function PDFForm() {
   };
 
   const handleAddExperience = () => {
-    setExperiences([ ...experiences,{ id: Math.random(), title: "", test: "" },]);
+    setExperiences([
+      ...experiences,
+      { id: Math.random(), title: "", test: "" },
+    ]);
   };
 
   const handleRemoveExperience = (index) => {
@@ -96,66 +98,49 @@ function PDFForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        first name:
-        <Input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </label>
-      <label>
-        last name:
-        <Input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-      </label>
-      <label>
-        Image:
-        <Input type="file" onChange={handleImageUpload} />
-      </label>
-      <label>
-        Email:
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        address:
-        <Input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-      </label>
-      <label>
-        city:
-        <Input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-      </label>
-      <label>
-        postal code:
-        <Input
-          type="text"
-          value={postalCode}
-          onChange={(e) => setPostalCode(e.target.value)}
-        />
-      </label>
-      <label>
-        Phone Number:
-        <Input
-          type="tel"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
-      </label>
+      <FormField
+        label="first name"
+        type="text"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+      />
+      <FormField
+        label="last name"
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <FormField label="Image" type="file" onChange={handleImageUpload} />
+      <FormField
+        label="Email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <FormField
+        label="address"
+        type="text"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+      />
+      <FormField
+        label="city"
+        type="text"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <FormField
+        label="postal code"
+        type="text"
+        value={postalCode}
+        onChange={(e) => setPostalCode(e.target.value)}
+      />
+      <FormField
+        label="Phone Number"
+        type="tel"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+      />
       {skills.map((skill, index) => (
         <Skill
           key={skill.id}
