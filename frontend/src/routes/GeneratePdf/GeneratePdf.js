@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Skill from "../../components/Skills/Skill";
 import Experience from "../../components/Experience/Experience";
 import Button from "../../components/Button/Button";
-import FormField from "../../components/FormField/FormField";
+import InformationPersonal from "../../components/InfomationPersonalPage/InformationPersonal";
 
 function PDFForm() {
   const PDF_URL = "http://localhost:5000/pdf";
@@ -108,52 +108,25 @@ function PDFForm() {
   return (
     <form onSubmit={handleSubmit}>
       {page === 1 && (
-        <>
-          <FormField
-            label="first name"
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <FormField
-            label="last name"
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <FormField label="Image" type="file" onChange={handleImageUpload} />
-          <FormField
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <FormField
-            label="address"
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <FormField
-            label="city"
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <FormField
-            label="postal code"
-            type="text"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-          />
-          <FormField
-            label="Phone Number"
-            type="tel"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <Button text="Next" onClick={nextPage} />
-        </>
+        <InformationPersonal
+          firstName={firstName}
+          setFirstName={setFirstName}
+          text={text}
+          setText={setText}
+          handleImageUpload={handleImageUpload}
+          imageData={imageData}
+          email={email}
+          setEmail={setEmail}
+          address={address}
+          setAddress={setAddress}
+          city={city}
+          setCity={setCity}
+          postalCode={postalCode}
+          setPostalCode={setPostalCode}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          nextPage={nextPage}
+        />
       )}
       {page === 2 && (
         <>

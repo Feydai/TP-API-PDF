@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS pdf_database;
+
+USE pdf_database;
+
+CREATE TABLE IF NOT EXISTS pdf_info (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  pdf_name VARCHAR(255) NOT NULL,
+  pdf_path VARCHAR(255) NOT NULL
+);
