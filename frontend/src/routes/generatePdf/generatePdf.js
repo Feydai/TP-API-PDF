@@ -35,7 +35,7 @@ function PDFForm() {
   };
 
   const handleRemoveSkill = (index) => {
-    const values = [...experiences];
+    const values = [...skills];
     values.splice(index, 1);
     setSkills(values);
   };
