@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import PDFForm from "./GeneratePdf/GeneratePdf";
-import PDFHistory from "./historyPdf/historyPdf";
+import PDFHistory from "./HistoryPdf/HistoryPdf";
 
 export const routesConfig = [
   {

@@ -17,6 +17,15 @@ function PDFForm() {
   const [skills, setSkills] = useState([{ name: "", description: "" }]);
   const [experiences, setExperiences] = useState([{ title: "", test: "" }]);
   const [pdf, setPdf] = useState({});
+  const [page, setPage] = useState(1);
+
+  const nextPage = () => {
+    setPage(page + 1);
+  };
+
+  const previousPage = () => {
+    setPage(page - 1);
+  };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -98,83 +107,100 @@ function PDFForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormField
-        label="first name"
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      />
-      <FormField
-        label="last name"
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <FormField label="Image" type="file" onChange={handleImageUpload} />
-      <FormField
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <FormField
-        label="address"
-        type="text"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-      />
-      <FormField
-        label="city"
-        type="text"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
-      <FormField
-        label="postal code"
-        type="text"
-        value={postalCode}
-        onChange={(e) => setPostalCode(e.target.value)}
-      />
-      <FormField
-        label="Phone Number"
-        type="tel"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-      />
-      {skills.map((skill, index) => (
-        <Skill
-          key={skill.id}
-          skill={skill}
-          index={index}
-          handleSkillChange={handleSkillChange}
-          handleRemoveSkill={handleRemoveSkill}
-          handleAddSkill={handleAddSkill}
-        />
-      ))}
-      {experiences.map((experience, index) => (
-        <Experience
-          key={experience.id}
-          experience={experience}
-          index={index}
-          handleExperienceChange={handleExperienceChange}
-          handleRemoveExperience={handleRemoveExperience}
-          handleAddExperience={handleAddExperience}
-        />
-      ))}
-      {pdf.pdf_name && (
-        <Button
-          onClick={() => {
-            const link = document.createElement("a");
-            link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
-            link.download = pdf.pdf_name;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }}
-          text="Download PDF"
-        />
+      {page === 1 && (
+        <>
+          <FormField
+            label="first name"
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <FormField
+            label="last name"
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <FormField label="Image" type="file" onChange={handleImageUpload} />
+          <FormField
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <FormField
+            label="address"
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <FormField
+            label="city"
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <FormField
+            label="postal code"
+            type="text"
+            value={postalCode}
+            onChange={(e) => setPostalCode(e.target.value)}
+          />
+          <FormField
+            label="Phone Number"
+            type="tel"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          <Button text="Next" onClick={nextPage} />
+        </>
       )}
-      <Button text="Generate PDF" type="submit" />
+      {page === 2 && (
+        <>
+          {skills.map((skill, index) => (
+            <Skill
+              key={skill.id}
+              skill={skill}
+              index={index}
+              handleSkillChange={handleSkillChange}
+              handleRemoveSkill={handleRemoveSkill}
+              handleAddSkill={handleAddSkill}
+            />
+          ))}
+          <Button text="Previous" onClick={previousPage} />
+          <Button text="Next" onClick={nextPage} />
+        </>
+      )}
+
+      {page === 3 && (
+        <>
+          {experiences.map((experience, index) => (
+            <Experience
+              key={experience.id}
+              experience={experience}
+              index={index}
+              handleExperienceChange={handleExperienceChange}
+              handleRemoveExperience={handleRemoveExperience}
+              handleAddExperience={handleAddExperience}
+            />
+          ))}
+          <Button text="Previous" onClick={previousPage} />
+          <Button text="Generate PDF" type="submit" />
+          {pdf.pdf_name && (
+            <Button
+              onClick={() => {
+                const link = document.createElement("a");
+                link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
+                link.download = pdf.pdf_name;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              text="Download PDF"
+            />
+          )}
+        </>
+      )}
     </form>
   );
 }
