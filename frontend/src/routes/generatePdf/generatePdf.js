@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import './generatePdf.css'
+import Skill from "../../components/Skills/Skill";
+import Experience from "../../components/Experience/Experience";
+import "./generatePdf.css";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input/Input";
 
 function PDFForm() {
+  const PDF_URL = "http://localhost:5000/pdf";
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -12,6 +17,7 @@ function PDFForm() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [skills, setSkills] = useState([{ name: "", description: "" }]);
   const [experiences, setExperiences] = useState([{ title: "", test: "" }]);
+  const [pdf, setPdf] = useState({});
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -47,7 +53,10 @@ function PDFForm() {
   };
 
   const handleAddExperience = () => {
-    setExperiences([...experiences, { id: Math.random(), title: "", test: "" }]);
+    setExperiences([
+      ...experiences,
+      { id: Math.random(), title: "", test: "" },
+    ]);
   };
 
   const handleRemoveExperience = (index) => {
@@ -59,7 +68,7 @@ function PDFForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:5000/pdf", {
+    const response = await fetch(PDF_URL, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -79,6 +88,9 @@ function PDFForm() {
     });
 
     if (response.ok) {
+      const data = await response.json();
+      setPdf(data);
+      console.log(data);
       alert("PDF generated!");
     } else {
       alert("Error generating PDF");
@@ -89,7 +101,7 @@ function PDFForm() {
     <form onSubmit={handleSubmit}>
       <label>
         first name:
-        <input
+        <Input
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -97,7 +109,7 @@ function PDFForm() {
       </label>
       <label>
         last name:
-        <input
+        <Input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -105,11 +117,11 @@ function PDFForm() {
       </label>
       <label>
         Image:
-        <input type="file" onChange={handleImageUpload} />
+        <Input type="file" onChange={handleImageUpload} />
       </label>
       <label>
         Email:
-        <input
+        <Input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -117,7 +129,7 @@ function PDFForm() {
       </label>
       <label>
         address:
-        <input
+        <Input
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
@@ -125,7 +137,7 @@ function PDFForm() {
       </label>
       <label>
         city:
-        <input
+        <Input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
@@ -133,7 +145,7 @@ function PDFForm() {
       </label>
       <label>
         postal code:
-        <input
+        <Input
           type="text"
           value={postalCode}
           onChange={(e) => setPostalCode(e.target.value)}
@@ -141,69 +153,46 @@ function PDFForm() {
       </label>
       <label>
         Phone Number:
-        <input
+        <Input
           type="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
       </label>
       {skills.map((skill, index) => (
-        <div key={skill.id}>
-          <label>
-            Skill {index + 1}:
-            <input
-              type="text"
-              value={skill.name}
-              onChange={(event) => handleSkillChange(index, event, "name")}
-            />
-          </label>
-          <label>
-            Description:
-            <input
-              type="text"
-              value={skill.description}
-              onChange={(event) =>
-                handleSkillChange(index, event, "description")
-              }
-            />
-          </label>
-          <button type="button" onClick={handleAddSkill}>
-            Add Skill
-          </button>
-          <button type="button" onClick={() => handleRemoveSkill(index)}>
-            Remove
-          </button>
-        </div>
+        <Skill
+          key={skill.id}
+          skill={skill}
+          index={index}
+          handleSkillChange={handleSkillChange}
+          handleRemoveSkill={handleRemoveSkill}
+          handleAddSkill={handleAddSkill}
+        />
       ))}
       {experiences.map((experience, index) => (
-        <div key={experience.id}>
-          <label>
-            Experiences {index + 1}:
-            <input
-              type="text"
-              value={experience.title}
-              onChange={(event) =>
-                handleExperienceChange(index, event, "title")
-              }
-            />
-          </label>
-          <label>
-            Description:
-            <input
-              type="text"
-              value={experience.test}
-              onChange={(event) => handleExperienceChange(index, event, "test")}
-            />
-          </label>
-          <button type="button" onClick={handleAddExperience}>
-            Add Skill
-          </button>
-          <button type="button" onClick={() => handleRemoveExperience(index)}>
-            Remove
-          </button>
-        </div>
+        <Experience
+          key={experience.id}
+          experience={experience}
+          index={index}
+          handleExperienceChange={handleExperienceChange}
+          handleRemoveExperience={handleRemoveExperience}
+          hanfleAddExperience={handleAddExperience}
+        />
       ))}
-      <button type="submit">Generate PDF</button>
+      {pdf.pdf_name && (
+        <Button
+          onClick={() => {
+            const link = document.createElement("a");
+            link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
+            link.download = pdf.pdf_name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }}
+          text="Download PDF"
+        />
+      )}
+      <Button text="Generate PDF" type="submit" />
     </form>
   );
 }
