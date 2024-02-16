@@ -138,10 +138,10 @@ function PDFForm() {
               handleSkillChange={handleSkillChange}
               handleRemoveSkill={handleRemoveSkill}
               handleAddSkill={handleAddSkill}
+              previousPage={previousPage}
+              nextPage={nextPage}
             />
           ))}
-          <Button text="Previous" onClick={previousPage} />
-          <Button text="Next" onClick={nextPage} />
         </>
       )}
 
