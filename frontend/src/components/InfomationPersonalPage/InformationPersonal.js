@@ -25,7 +25,7 @@ function InformationPersonal({
   return (
     <>
       <div className="container">
-        <FormField label="Image" type="file" onChange={handleImageUpload} />
+        <FormField className='image' label="Image" type="file" onChange={handleImageUpload} />
         <FormField
           label="Prénom*"
           type="text"

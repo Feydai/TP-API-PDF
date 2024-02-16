@@ -18,6 +18,7 @@ function PDFForm() {
   const [experiences, setExperiences] = useState([{ title: "", test: "" }]);
   const [pdf, setPdf] = useState({});
   const [page, setPage] = useState(1);
+  const [template, setTemplate] = useState('template1');
 
   const nextPage = () => {
     setPage(page + 1);
@@ -92,6 +93,7 @@ function PDFForm() {
         phoneNumber,
         skills,
         experiences,
+        template,
       }),
     });
 
@@ -158,6 +160,13 @@ function PDFForm() {
               previousPage={previousPage}
             />
           ))}
+          <label>
+            Template:
+            <select value={template} onChange={e => setTemplate(e.target.value)}>
+              <option value="template1">Template 1</option>
+              <option value="template2">Template 2</option>
+            </select>
+          </label>
           <Button text="Generate PDF" type="submit" />
           {pdf.pdf_name && (
             <Button

@@ -2,13 +2,7 @@ const mysql = require("mysql");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const createPdfData = require("../data/pdfData");
-const {
-  headerProfile,
-  imageProfile,
-  contactProfile,
-  addSkills,
-  addExperience,
-} = require("../utils/bodyPdf");
+const templates = require("../controllers/pdfTemplate");
 const connection = require("../data/db");
 
 exports.updatePDF = (req, res) => {
@@ -20,20 +14,15 @@ exports.updatePDF = (req, res) => {
     fs.mkdirSync(dirPath, { recursive: true });
     const pdfPath = `${dirPath}/${pdfName}`;
     const post = { pdf_name: pdfName, pdf_path: pdfPath };
-
     doc.pipe(fs.createWriteStream(pdfPath));
-    headerProfile(doc, updateDataPdf.text, updateDataPdf.firstName);
-    imageProfile(doc, updateDataPdf.imagePath);
-    contactProfile(
-      doc,
-      updateDataPdf.phoneNumber,
-      updateDataPdf.email,
-      updateDataPdf.address,
-      updateDataPdf.city,
-      updateDataPdf.postalCode
-    );
-    addSkills(doc, updateDataPdf.skills);
-    addExperience(doc, updateDataPdf.experiences);
+
+    const templateName = req.body.template || "template1";
+    const template = templates[templateName];
+    if (!template) {
+      res.status(400).send("Invalid template name");
+      return;
+    }
+    template(doc, updateDataPdf);
     doc.end();
 
     const query = connection.query(
