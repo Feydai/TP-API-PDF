@@ -155,9 +155,9 @@ function PDFForm() {
               handleExperienceChange={handleExperienceChange}
               handleRemoveExperience={handleRemoveExperience}
               handleAddExperience={handleAddExperience}
+              previousPage={previousPage}
             />
           ))}
-          <Button text="Previous" onClick={previousPage} />
           <Button text="Generate PDF" type="submit" />
           {pdf.pdf_name && (
             <Button

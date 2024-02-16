@@ -7,6 +7,7 @@ function Experience({
   handleExperienceChange,
   handleRemoveExperience,
   handleAddExperience,
+  previousPage,
 }) {
   return (
     <div key={experience.id}>
@@ -27,7 +28,12 @@ function Experience({
         />
       </label>
       <Button type="button" onClick={handleAddExperience} text={"+"} />
-      <Button type="button" onClick={() => handleRemoveExperience(index)} text={"-"}/>
+      <Button
+        type="button"
+        onClick={() => handleRemoveExperience(index)}
+        text={"-"}
+      />
+      <Button text="Previous" onClick={previousPage} />
     </div>
   );
 }
