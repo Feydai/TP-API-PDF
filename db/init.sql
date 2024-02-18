@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS pdf_database;
 
 CREATE USER 'myuser'@'%' IDENTIFIED BY '1364508042Leo@!';
 
-GRANT ALL PRIVILEGES ON pdf_database.* TO 'myuser'@'%';
+GRANT ALL PRIVILEGES ON pdf_database.* TO 'root'@'%';
 FLUSH PRIVILEGES;
 
 USE pdf_database;

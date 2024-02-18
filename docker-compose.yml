@@ -35,7 +35,7 @@ services:
   frontend:
     build:
       context: ./frontend/
-      dockerfile: Dockerfile-frontend
+      dockerfile: Dockerfile
     volumes:
       - /usr/src/app/node_modules
       - ./frontend:/usr/src/app
