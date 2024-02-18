@@ -3,14 +3,14 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const createPdfData = require("../data/pdfData");
 const templates = require("../controllers/pdfTemplate");
-const connection = require("../data/db");
+let connection = require("../data/db");
 
 exports.updatePDF = (req, res) => {
   try {
     const doc = new PDFDocument();
     const updateDataPdf = createPdfData(req, doc);
     const pdfName = `CV-${Math.floor(Math.random() * 1000000)}.pdf`;
-    const dirPath = "/home/leo/W2-HETIC/TD/API/TP-API-PDF/backend/pdfs";
+    const dirPath = process.env.PDF_DIRECTORY; // Utilisez la variable d'environnement PDF_DIRECTORY
     fs.mkdirSync(dirPath, { recursive: true });
     const pdfPath = `${dirPath}/${pdfName}`;
     const post = { pdf_name: pdfName, pdf_path: pdfPath };

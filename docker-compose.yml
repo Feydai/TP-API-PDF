@@ -1,0 +1,50 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 1364508042Leo@!
+      MYSQL_DATABASE: pdf_database
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    networks:
+      - app-network
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    volumes:
+      - /usr/src/app/node_modules
+      - ./backend:/usr/src/app
+      - ./pdfs:/usr/src/app/pdfs
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    environment:
+      PDF_DIRECTORY: /usr/src/app/pdfs
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: 1364508042Leo@!
+      DB_NAME: pdf_database
+    networks:
+      - app-network
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile-frontend
+    volumes:
+      - /usr/src/app/node_modules
+      - ./frontend:/usr/src/app
+    ports:
+      - 3000:3000
+    networks:
+      - app-network
+volumes:
+  db_data: {}
+networks:
+  app-network:
+    driver: bridge
