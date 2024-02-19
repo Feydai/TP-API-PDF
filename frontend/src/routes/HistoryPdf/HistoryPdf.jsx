@@ -7,7 +7,7 @@ function PDFHistory() {
   const [isOpen, setIsOpen] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+  const [selectedPdfId, setSelectedPdfId] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:5000/pdf/pdf-history")
@@ -38,41 +38,43 @@ function PDFHistory() {
   };
 
   return (
-    <div>
+    <div onClick={() => setIsPopupOpen(false)}>
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <p className="title">PDF History</p>
         {pdfs.map((pdf) => (
           <div key={pdf.id}>
             <h2>{pdf.pdf_name}</h2>
-            <button onClick={() => setIsPopupOpen(true)}>...</button>
-            {isPopupOpen && (
-              <div className="popup">
-                <p>Are you sure you want to delete this PDF?</p>
-                <button onClick={() => handleDelete(pdf.id)}>Yes</button>
-                <button onClick={() => setIsPopupOpen(false)}>No</button>
+            <button onClick={(e) => {e.stopPropagation(); setIsPopupOpen(true); setSelectedPdfId(pdf.id);}}>...</button>
+            {isPopupOpen && selectedPdfId === pdf.id && (
+              <div className="popup" onClick={(e) => e.stopPropagation()}>
+                <button onClick={() => handleDelete(pdf.id)}>Delete</button>
+                <a
+                  href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View PDF
+                </a>{" "}
+                <button onClick={(e) => {e.stopPropagation(); setIsPopupOpen(false);}}>No</button>
               </div>
             )}
-            <button onClick={() => handleDelete(pdf.id)}>Delete</button>
-            <a
-              href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View PDF
-            </a>
           </div>
         ))}
       </div>
-      <button 
-        className="toggle-button" 
+      <button
+        className="toggle-button"
         onClick={() => setIsOpen(!isOpen)}
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
       >
         {isOpen ? "|" : "<"}
       </button>
-      {!isOpen && isHovered && <div className="sidebar-open">Open History Bar</div>}
-      {isOpen && isHovered && <div className="sidebar-close">Close History Bar</div>}
+      {!isOpen && isHovered && (
+        <div className="sidebar-open">Open History Bar</div>
+      )}
+      {isOpen && isHovered && (
+        <div className="sidebar-close">Close History Bar</div>
+      )}
     </div>
   );
 }
