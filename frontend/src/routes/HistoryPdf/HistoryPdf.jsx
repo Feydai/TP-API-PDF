@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import './PDFHistory.css';
 
 function PDFHistory() {
   const [pdfs, setPdfs] = useState([]);
   const [deletedPdfId, setDeletedPdfId] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     fetch("http://localhost:5000/pdf/pdf-history")
@@ -34,21 +36,25 @@ function PDFHistory() {
 
   return (
     <div>
-      <h1>PDF History</h1>
-      {pdfs.map((pdf) => (
-        <div key={pdf.id}>
-          <h2>{pdf.pdf_name}</h2>
-          <p>{pdf.pdf_path}</p>
-          <button onClick={() => handleDelete(pdf.id)}>Delete</button>
-          <a
-            href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View PDF
-          </a>
-        </div>
-      ))}
+      <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+        <p className="title">PDF History</p>
+        {pdfs.map((pdf) => (
+          <div key={pdf.id}>
+            <h2>{pdf.pdf_name}</h2>
+            <button onClick={() => handleDelete(pdf.id)}>Delete</button>
+            <a
+              href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View PDF
+            </a>
+          </div>
+        ))}
+      </div>
+      <button className="toggle-button" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? '>' : '<'}
+      </button>
     </div>
   );
 }
