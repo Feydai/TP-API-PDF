@@ -10,7 +10,7 @@ exports.updatePDF = (req, res) => {
     const doc = new PDFDocument();
     const updateDataPdf = createPdfData(req, doc);
     const pdfName = `CV-${Math.floor(Math.random() * 1000000)}.pdf`;
-    const dirPath = process.env.PDF_DIRECTORY; // Utilisez la variable d'environnement PDF_DIRECTORY
+    const dirPath = process.env.PDF_DIRECTORY;
     fs.mkdirSync(dirPath, { recursive: true });
     const pdfPath = `${dirPath}/${pdfName}`;
     const post = { pdf_name: pdfName, pdf_path: pdfPath };

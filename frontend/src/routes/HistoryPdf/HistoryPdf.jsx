@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./PDFHistory.css";
+import "./HistoryPdf.css";
 
 function PDFHistory() {
   const [pdfs, setPdfs] = useState([]);
   const [deletedPdfId, setDeletedPdfId] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
 
   useEffect(() => {
     fetch("http://localhost:5000/pdf/pdf-history")
@@ -42,6 +44,14 @@ function PDFHistory() {
         {pdfs.map((pdf) => (
           <div key={pdf.id}>
             <h2>{pdf.pdf_name}</h2>
+            <button onClick={() => setIsPopupOpen(true)}>...</button>
+            {isPopupOpen && (
+              <div className="popup">
+                <p>Are you sure you want to delete this PDF?</p>
+                <button onClick={() => handleDelete(pdf.id)}>Yes</button>
+                <button onClick={() => setIsPopupOpen(false)}>No</button>
+              </div>
+            )}
             <button onClick={() => handleDelete(pdf.id)}>Delete</button>
             <a
               href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
@@ -61,8 +71,8 @@ function PDFHistory() {
       >
         {isOpen ? "|" : "<"}
       </button>
-      {!isOpen && isHovered && <div className="sidebar-open">Ouvrir le historique</div>}
-      {isOpen && isHovered && <div className="sidebar-close">Fermer le historique</div>}
+      {!isOpen && isHovered && <div className="sidebar-open">Open History Bar</div>}
+      {isOpen && isHovered && <div className="sidebar-close">Close History Bar</div>}
     </div>
   );
 }
