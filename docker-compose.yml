@@ -4,8 +4,9 @@ services:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
     environment:
-      MYSQL_ROOT_PASSWORD: 1364508042Leo@!
-      MYSQL_DATABASE: pdf_database
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_DATABASE: ${DB_NAME}
     volumes:
       - db_data:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -26,10 +27,10 @@ services:
       - db
     environment:
       PDF_DIRECTORY: /usr/src/app/pdfs
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: 1364508042Leo@!
-      DB_NAME: pdf_database
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     networks:
       - app-network
   frontend:
