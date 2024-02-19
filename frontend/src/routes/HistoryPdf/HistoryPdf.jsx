@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import './PDFHistory.css';
+import "./PDFHistory.css";
 
 function PDFHistory() {
   const [pdfs, setPdfs] = useState([]);
   const [deletedPdfId, setDeletedPdfId] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:5000/pdf/pdf-history")
@@ -36,7 +37,7 @@ function PDFHistory() {
 
   return (
     <div>
-      <div className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+      <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <p className="title">PDF History</p>
         {pdfs.map((pdf) => (
           <div key={pdf.id}>
@@ -52,9 +53,16 @@ function PDFHistory() {
           </div>
         ))}
       </div>
-      <button className="toggle-button" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? '>' : '<'}
+      <button 
+        className="toggle-button" 
+        onClick={() => setIsOpen(!isOpen)}
+        onMouseOver={() => setIsHovered(true)}
+        onMouseOut={() => setIsHovered(false)}
+      >
+        {isOpen ? "|" : "<"}
       </button>
+      {!isOpen && isHovered && <div className="sidebar-open">Ouvrir le historique</div>}
+      {isOpen && isHovered && <div className="sidebar-close">Fermer le historique</div>}
     </div>
   );
 }
