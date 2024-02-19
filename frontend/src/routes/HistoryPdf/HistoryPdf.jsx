@@ -9,6 +9,8 @@ function PDFHistory() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedPdfId, setSelectedPdfId] = useState(null);
 
+  const popupRef = React.useRef(null);
+
   useEffect(() => {
     fetch("http://localhost:5000/pdf/pdf-history")
       .then((response) => response.json())
@@ -22,6 +24,24 @@ function PDFHistory() {
         );
       });
   }, [deletedPdfId]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsPopupOpen(false);
+      }
+    };
+
+    if (isPopupOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isPopupOpen]);
 
   const handleDelete = (id) => {
     fetch(`http://localhost:5000/pdf/pdf-delete/${id}`, { method: "DELETE" })
@@ -38,7 +58,7 @@ function PDFHistory() {
   };
 
   return (
-    <div onClick={() => setIsPopupOpen(false)}>
+    <div>
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <p className="title">PDF History</p>
         {pdfs.map((pdf) => (
@@ -46,7 +66,7 @@ function PDFHistory() {
             <h2>{pdf.pdf_name}</h2>
             <button onClick={(e) => {e.stopPropagation(); setIsPopupOpen(true); setSelectedPdfId(pdf.id);}}>...</button>
             {isPopupOpen && selectedPdfId === pdf.id && (
-              <div className="popup" onClick={(e) => e.stopPropagation()}>
+              <div className="popup" ref={popupRef} onClick={(e) => e.stopPropagation()}>
                 <button onClick={() => handleDelete(pdf.id)}>Delete</button>
                 <a
                   href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
