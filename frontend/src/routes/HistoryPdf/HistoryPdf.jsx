@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./HistoryPdf.css";
 import PopuItem from '../../components/PopuItem/PopupItem';
 
-function PDFHistory() {
+function PDFHistory({ onToggle }) {
   const [pdfs, setPdfs] = useState([]);
   const [deletedPdfId, setDeletedPdfId] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
@@ -38,6 +38,11 @@ function PDFHistory() {
       });
   };
 
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+    onToggle();
+  };
+
   return (
     <div>
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
@@ -56,7 +61,7 @@ function PDFHistory() {
       </div>
       <button
         className="toggle-button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleOpen}
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
       >

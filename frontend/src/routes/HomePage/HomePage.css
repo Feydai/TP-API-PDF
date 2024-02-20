@@ -1,0 +1,26 @@
+.home-page {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .home-content {
+    flex-grow: 1;
+    transition: margin-left 0.5s ease-in-out;
+    background: linear-gradient(170deg, violet 50%, white 50%);
+  }
+  
+  .home-content.shifted {
+    margin-left: 250px;
+  }
+  
+  .pdf-history {
+    transition: margin-left 0.5s ease-in-out;
+  }
+  
+  .pdf-history.open {
+    margin-left: 200px;
+  }
+  
+  .pdf-history.closed {
+    margin-left: 0;
+  }
