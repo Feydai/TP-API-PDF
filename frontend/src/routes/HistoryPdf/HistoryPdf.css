@@ -13,7 +13,7 @@ div {
   width: 250px;
   height: 100%;
   overflow: auto;
-  background-color: #d1d1d2;
+  background-color: #edecec;
   box-sizing: border-box;
   transition: width 0.3s ease, padding 0.3s ease;
 }
@@ -31,6 +31,7 @@ div {
   background: none;
   border: none;
   font-size: 2em;
+  color: white;
   transition: left 0.3s ease;
   font-weight: bold;
   cursor: pointer;
