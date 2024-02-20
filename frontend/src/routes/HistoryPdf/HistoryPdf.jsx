@@ -46,7 +46,7 @@ function PDFHistory({ onToggle }) {
   return (
     <div>
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        <p className="title">PDF History</p>
+        <p className="title">Historique des PDF</p>
         {pdfs.map((pdf) => (
           <PopuItem 
             key={pdf.id} 
@@ -65,13 +65,13 @@ function PDFHistory({ onToggle }) {
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
       >
-        {isOpen ? "|" : "<"}
+        {isOpen ? "|" : ">"}
       </button>
       {!isOpen && isHovered && (
-        <div className="sidebar-open">Open History Bar</div>
+        <div className="sidebar-open">Ouvrir la barre d'historique</div>
       )}
       {isOpen && isHovered && (
-        <div className="sidebar-close">Close History Bar</div>
+        <div className="sidebar-close">Fermer la barre d'historique</div>
       )}
     </div>
   );

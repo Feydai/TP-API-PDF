@@ -16,16 +16,19 @@ const HomePage = () => {
     <div className="home-page">
       <PDFHistory onToggle={handleToggle} />
       <div className={`home-content ${isNavbarOpen ? "shifted" : ""}`}>
-        <h1>Create your own CV quickly !!</h1>
+        <h1>Créez votre propre CV rapidement !!</h1>
         <Button
           className="create-cv-button"
-          text="Create CV"
+          text="Crée un CV"
           onClick={() => {
             navigate("./cv");
           }}
         />
         <div>test</div>
-        <div>test</div>
+        <div className="">
+          <h1>OR</h1>
+          <p>View history of created CVs:</p>
+        </div>
       </div>
     </div>
   );
