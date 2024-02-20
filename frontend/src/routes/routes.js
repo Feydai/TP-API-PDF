@@ -9,8 +9,8 @@ export const routesConfig = [
     element: <HomePage />,
   },
   {
-    path: "/history",
-    element: <PDFHistory />,
+    path: "/cv",
+    element: <PDFForm />,
   },
 ];
 export const router = createBrowserRouter(routesConfig);
