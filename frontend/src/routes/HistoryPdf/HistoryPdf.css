@@ -14,7 +14,6 @@ div {
   height: 100%;
   overflow: auto;
   background-color: #d1d1d2;
-  padding: 20px;
   box-sizing: border-box;
   transition: width 0.3s ease, padding 0.3s ease;
 }
@@ -45,6 +44,7 @@ div {
 }
 
 .title {
+  text-align: center;
   font-size: 1.5em;
   margin-bottom: 20px;
   font-weight: bold;

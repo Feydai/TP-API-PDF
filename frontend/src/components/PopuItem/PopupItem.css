@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding: 10px;
+  padding: 10px 80px 10px 80px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  width: 100px;
 }
 
 .popup-item:hover {
