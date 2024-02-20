@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+p,
+div {
+  color: black;
+}
+
+.sidebar {
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  overflow: auto;
+  background-color: #d1d1d2;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar.closed {
+  width: 0px;
+  padding: 20px 0px;
+  overflow: hidden;
+}
+
+.toggle-button {
+  position: fixed;
+  left: 270px;
+  top: 50%;
+  background: none;
+  border: none;
+  font-size: 2em;
+  transition: left 0.3s ease;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    color: #d1d1d2;
+  }
+}
+
+.sidebar.closed + .toggle-button {
+  left: 20px;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.sidebar-open {
+  position: fixed;
+  left: 100px;
+  top: 50%;
+  background: none;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  background-color: black;
+  border-radius: 5px;
+  color: white;
+}
+
+.sidebar-close {
+  position: fixed;
+  left: 330px;
+  top: 50%;
+  background: none;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
+}

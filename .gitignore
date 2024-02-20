@@ -6,7 +6,6 @@ node_modules/
 # Fichiers de build
 build/
 dist/
-*.css
 *.map
 *.pdf
 
