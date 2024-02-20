@@ -1,8 +1,9 @@
 .popup-item {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  color: white;
   margin-left: 10px;
   padding: 10px 40px 10px 40px;
   margin-bottom: 10px;
@@ -13,28 +14,25 @@
 }
 
 .popup-item:hover {
-  background-color: #f5f5f5;
+  background-color: #573ed6;
+  border: none;
 }
 
 .pdf-name {
   margin: 0;
   font-size: 16px;
-  color: #333;
 }
 
 .popup-button {
   margin-left: 10px;
   padding: 5px 10px;
   font-size: 20px;
-  color: black;
+  color: white;
   font-weight: bold;
   background-color: transparent;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  &:hover {
-    background-color: #f5f5f5;
-  }
 }
 
 .popup {
@@ -89,7 +87,7 @@
 .download-button {
   padding: 5px 10px;
   font-size: 14px;
-  color: black;
+  color: white;
   background-color: transparent;
   border: none;
   border-radius: 5px;
