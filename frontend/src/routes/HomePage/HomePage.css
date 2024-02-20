@@ -4,13 +4,14 @@
 }
 
 .home-content {
+  padding-top: 60px;
   flex-grow: 1;
   color: white;
   transition: margin-left 0.5s ease-in-out;
   background: linear-gradient(170deg, #7356e4 50%, white 50%);
   display: flex;
   flex-direction: column;
-  justify-content: first baseline;
+  justify-content:first baseline;
   align-items: center;
 }
 

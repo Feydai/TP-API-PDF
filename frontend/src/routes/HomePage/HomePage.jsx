@@ -16,8 +16,7 @@ const HomePage = () => {
     <div className="home-page">
       <PDFHistory onToggle={handleToggle} />
       <div className={`home-content ${isNavbarOpen ? "shifted" : ""}`}>
-        <h1>Welcome to the Home Page</h1>
-        <p>This is a simple home page component.</p>
+        <h1>Create your own CV quickly !!</h1>
         <Button
           className="create-cv-button"
           text="Create CV"
@@ -25,6 +24,8 @@ const HomePage = () => {
             navigate("./cv");
           }}
         />
+        <div>test</div>
+        <div>test</div>
       </div>
     </div>
   );
