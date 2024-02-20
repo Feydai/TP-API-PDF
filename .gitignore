@@ -10,7 +10,6 @@ dist/
 *.pdf
 
 # Fichiers d'environnement
-.env
 .env.local
 .env.development
 .env.test

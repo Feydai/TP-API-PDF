@@ -1,3 +1,6 @@
+CREATE USER IF NOT EXISTS 'myuser'@'%' IDENTIFIED BY 'myuser123456@!';
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' WITH GRANT OPTION;
+
 CREATE DATABASE IF NOT EXISTS pdf_database;
 
 USE pdf_database;
