@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./HistoryPdf.css";
+import PopuItem from '../../components/PopuItem/PopupItem';
 
 function PDFHistory() {
   const [pdfs, setPdfs] = useState([]);
@@ -8,8 +9,6 @@ function PDFHistory() {
   const [isHovered, setIsHovered] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedPdfId, setSelectedPdfId] = useState(null);
-
-  const popupRef = React.useRef(null);
 
   useEffect(() => {
     fetch("http://localhost:5000/pdf/pdf-history")
@@ -24,24 +23,6 @@ function PDFHistory() {
         );
       });
   }, [deletedPdfId]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setIsPopupOpen(false);
-      }
-    };
-
-    if (isPopupOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isPopupOpen]);
 
   const handleDelete = (id) => {
     fetch(`http://localhost:5000/pdf/pdf-delete/${id}`, { method: "DELETE" })
@@ -62,23 +43,15 @@ function PDFHistory() {
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <p className="title">PDF History</p>
         {pdfs.map((pdf) => (
-          <div key={pdf.id}>
-            <h2>{pdf.pdf_name}</h2>
-            <button onClick={(e) => {e.stopPropagation(); setIsPopupOpen(true); setSelectedPdfId(pdf.id);}}>...</button>
-            {isPopupOpen && selectedPdfId === pdf.id && (
-              <div className="popup" ref={popupRef} onClick={(e) => e.stopPropagation()}>
-                <button onClick={() => handleDelete(pdf.id)}>Delete</button>
-                <a
-                  href={`http://localhost:5000/pdf-files/${pdf.pdf_name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View PDF
-                </a>{" "}
-                <button onClick={(e) => {e.stopPropagation(); setIsPopupOpen(false);}}>No</button>
-              </div>
-            )}
-          </div>
+          <PopuItem 
+            key={pdf.id} 
+            pdf={pdf} 
+            handleDelete={handleDelete} 
+            setIsPopupOpen={setIsPopupOpen} 
+            setSelectedPdfId={setSelectedPdfId} 
+            isPopupOpen={isPopupOpen} 
+            selectedPdfId={selectedPdfId} 
+          />
         ))}
       </div>
       <button
