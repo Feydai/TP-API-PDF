@@ -13,7 +13,7 @@ function HeaderSecond() {
 
   return (
     <nav className="navbar-second">
-      <h1 onClick={handleClick}>CVBuilder</h1>
+      <h1 className="title-name"onClick={handleClick}>CVBuilder</h1>
     </nav>
   );
 }
