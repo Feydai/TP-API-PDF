@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
+import "./Skill.css";
 
 function Skill({
   skill,
@@ -11,32 +12,38 @@ function Skill({
   nextPage,
 }) {
   return (
-    <div key={skill.id}>
-      <label>
-        Skill {index + 1}:
-        <input
-          type="text"
-          value={skill.name}
-          onChange={(event) => handleSkillChange(index, event, "name")}
-        />
-      </label>
-      <label>
-        Description:
-        <input
-          type="text"
-          value={skill.description}
-          onChange={(event) => handleSkillChange(index, event, "description")}
-        />
-      </label>
-      <Button type="button" onClick={handleAddSkill} text={"Add Skill"} />
-      <Button
-        type="button"
-        onClick={() => handleRemoveSkill(index)}
-        text={"Delete Skill"}
-        color={"red"}
-      />
-      <Button text="Previous" onClick={previousPage} />
-      <Button text="Next" onClick={nextPage} />
+    <div>
+      <div className="skill-container">
+        <div key={skill.id}>
+          <label>
+            Skill {index + 1}:
+            <input
+              type="text"
+              value={skill.name}
+              onChange={(event) => handleSkillChange(index, event, "name")}
+            />
+          </label>
+          <label>
+            Description:
+            <input
+              type="text"
+              value={skill.description}
+              onChange={(event) =>
+                handleSkillChange(index, event, "description")
+              }
+            />
+          </label>
+            <Button type="button" onClick={handleAddSkill} text={"Ajouter une compétence"} />
+            <Button
+              type="button"
+              onClick={() => handleRemoveSkill(index)}
+              text={"Supprimer la compétence"}
+              color={"red"}
+            />
+          </div>
+          <Button text="Précédent" onClick={previousPage} />
+          <Button text="Suivant" onClick={nextPage} />
+      </div>
     </div>
   );
 }

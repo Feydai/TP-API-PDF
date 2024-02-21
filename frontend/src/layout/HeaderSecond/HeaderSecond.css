@@ -5,7 +5,7 @@
   color: white;
   padding: 20px 0;
   font-size: 24px;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .title-name {

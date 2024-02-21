@@ -3,6 +3,7 @@ import Skill from "../../components/Skills/Skill";
 import Experience from "../../components/Experience/Experience";
 import Button from "../../components/Button/Button";
 import InformationPersonal from "../../components/InfomationPersonalPage/InformationPersonal";
+import HeaderSecond from "../../layout/HeaderSecond/HeaderSecond";
 
 function PDFForm() {
   const PDF_URL = "http://localhost:5000/pdf";
@@ -133,6 +134,7 @@ function PDFForm() {
         )}
         {page === 2 && (
           <>
+            <HeaderSecond text="Vos Compétences" />
             {skills.map((skill, index) => (
               <Skill
                 key={skill.id}
@@ -150,6 +152,7 @@ function PDFForm() {
 
         {page === 3 && (
           <>
+            <HeaderSecond text="Vos Expériences" />
             {experiences.map((experience, index) => (
               <Experience
                 key={experience.id}
