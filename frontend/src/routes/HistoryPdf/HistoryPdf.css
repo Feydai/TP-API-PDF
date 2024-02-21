@@ -20,6 +20,7 @@ div {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  z-index: 10000;
 }
 
 .sidebar.closed {
