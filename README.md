@@ -1,4 +1,4 @@
-# Mon Projet
+# CVBUILDER
 
 Ce projet est une application web qui permet aux utilisateurs de créer et de télécharger des PDF basés sur différents modèles. Il a été réalisé dans le cadre d'un projet à l'école HETIC en deuxième année WEB2. Les technologies utilisées sont Node.js, React et MySQL.
 
