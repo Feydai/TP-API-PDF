@@ -3,14 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import "./PopupItem.css";
 
-function PopupItem({ pdf, handleDelete, setSelectedPdfId }) {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+function PopupItem({ pdf, handleDelete, selectedPdfId, setSelectedPdfId }) {
   const popupRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setIsPopupOpen(false);
+        setSelectedPdfId(null);
       }
     };
 
@@ -18,16 +17,23 @@ function PopupItem({ pdf, handleDelete, setSelectedPdfId }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [setSelectedPdfId]);
+
+  const isPopupOpen = selectedPdfId === pdf.id;
 
   return (
-    <div className="popup-item">
+    <div
+      className="popup-item"
+      onClick={() =>
+        window.open(`http://localhost:5000/pdf-files/${pdf.pdf_name}`, "_blank")
+      }
+      rel="noopener noreferrer"
+    >
       <h2 className="pdf-name">{pdf.pdf_name}</h2>
       <div className="utils">
         <button
           className="popup-button"
           onClick={() => {
-            setIsPopupOpen(true);
             setSelectedPdfId(pdf.id);
           }}
         >
@@ -39,7 +45,7 @@ function PopupItem({ pdf, handleDelete, setSelectedPdfId }) {
               className="delete-button"
               onClick={() => handleDelete(pdf.id)}
             >
-              Delete
+              Supprimer
             </button>
             <button
               className="view-pdf-link"
