@@ -4,6 +4,11 @@ const {
   contactProfile,
   addSkills,
   addExperience,
+  headerProfileSeconde,
+  addSkillsSeconde,
+  addExperienceSeconde,
+  contactProfileSeconde,
+  imageProfileSeconde
 } = require("../utils/bodyPdf");
 
 exports.template1 = (doc, data) => {
@@ -22,7 +27,16 @@ exports.template1 = (doc, data) => {
 };
 
 exports.template2 = (doc, data) => {
-  headerProfile(doc, data.text, data.firstName);
-  addSkills(doc, data.skills);
-  addExperience(doc, data.experiences);
+  headerProfileSeconde(doc, data.text, data.firstName);
+  imageProfileSeconde(doc, data.imagePath);
+  contactProfileSeconde(
+    doc,
+    data.phoneNumber,
+    data.email,
+    data.address,
+    data.city,
+    data.postalCode
+  );
+  addSkillsSeconde(doc, data.skills);
+  addExperienceSeconde(doc, data.experiences);
 };

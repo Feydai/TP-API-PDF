@@ -1,9 +1,24 @@
 const { addText, addImage, drawSquare } = require("./utilsPdf");
-const { createCube, createCubeBig } = require("./createCube");
-const { addContactInfo, addContactInfoAdress } = require("./utilsContact");
+const {
+  createCube,
+  createCubeBig,
+  createCubeSeconde,
+  createCubeBigSeconde,
+} = require("./createCube");
+const {
+  addContactInfo,
+  addContactInfoAdress,
+  addContactInfoAdressSeconde,
+  addContactInfoSeconde,
+} = require("./utilsContact");
 
 exports.imageProfile = (doc, imagePath) => {
   drawSquare(doc, 60, 0, 200, 150, "#f5f0ea");
+  addImage(doc, imagePath, 80, 70, 80);
+};
+
+exports.imageProfileSeconde = (doc, imagePath) => {
+  drawSquare(doc, 60, 0, 200, 150, "#809ee8");
   addImage(doc, imagePath, 80, 70, 80);
 };
 
@@ -11,6 +26,23 @@ exports.headerProfile = (doc, text, firstName) => {
   const estimatedFirstNameWidth = firstName.length * 10;
   const extraSpace = 50;
   drawSquare(doc, 0, 0, 2480, 30, "#809ba8");
+  addText(doc, firstName, "Times-Roman", 30, 289, 80, "black");
+  addText(
+    doc,
+    text,
+    "Helvetica-Bold",
+    30,
+    289 + estimatedFirstNameWidth + extraSpace,
+    80,
+    "black"
+  );
+  drawSquare(doc, 289, 135, 310, 2, "black");
+};
+
+exports.headerProfileSeconde = (doc, text, firstName) => {
+  const estimatedFirstNameWidth = firstName.length * 10;
+  const extraSpace = 50;
+  drawSquare(doc, 0, 0, 2480, 30, "#7356e4");
   addText(doc, firstName, "Times-Roman", 30, 289, 80, "black");
   addText(
     doc,
@@ -52,6 +84,40 @@ exports.contactProfile = (
   );
 };
 
+exports.contactProfileSeconde = (
+  doc,
+  phoneNumber,
+  mail,
+  address,
+  city,
+  postalCode
+) => {
+  createCubeSeconde(doc, 65, 250);
+  addText(doc, "CONTACT", "Courier", 20, 90, 250, "black");
+  createCubeBigSeconde(doc, 61, 280);
+  doc.image("./image/icons8-téléphone-60.png", 64, 282, {
+    width: 15,
+    height: 15,
+  });
+  addContactInfoSeconde(
+    doc,
+    "./image/icons8-téléphone-60.png",
+    61,
+    280,
+    phoneNumber
+  );
+  addContactInfoSeconde(doc, "./image/icons8-courrier-50.png", 61, 305, mail);
+  addContactInfoAdressSeconde(
+    doc,
+    "./image/icons8-position-50.png",
+    61,
+    330,
+    address,
+    city,
+    postalCode
+  );
+};
+
 exports.addSkills = (doc, skills) => {
   drawSquare(doc, 0, 762, 2480, 30, "#809ba8");
   drawSquare(doc, 60, 390, 200, 550, "#f5f0ea");
@@ -67,11 +133,40 @@ exports.addSkills = (doc, skills) => {
   });
 };
 
+exports.addSkillsSeconde = (doc, skills) => {
+  drawSquare(doc, 0, 762, 2480, 30, "#7356e4");
+  drawSquare(doc, 60, 390, 200, 550, "#809ee8");
+  skills.forEach((skill, index) => {
+    const y = 420 + index * 60;
+    createCubeSeconde(doc, 70, y);
+    doc.font("Courier").fontSize(20).fillColor("black").text(skill.name, 95, y);
+    doc
+      .font("Courier")
+      .fontSize(16)
+      .fillColor("black")
+      .text(skill.description, 95, y + 30, { width: 140 });
+  });
+};
+
 exports.addExperience = (doc, experiences) => {
   experiences.forEach((experience, index) => {
     const y = 160 + index * 80;
     drawSquare(doc, 280, y - 10, 325, 30, "#f5f0ea");
     createCube(doc, 290, y);
+    addText(doc, experience.title, "Times-Roman", 25, 320, y - 5, "black");
+    doc
+      .font("Courier")
+      .fontSize(16)
+      .fillColor("black")
+      .text(experience.test, 295, y + 40, { width: 300 });
+  });
+};
+
+exports.addExperienceSeconde = (doc, experiences) => {
+  experiences.forEach((experience, index) => {
+    const y = 160 + index * 80;
+    drawSquare(doc, 280, y - 10, 325, 30, "#809ee8");
+    createCubeSeconde(doc, 290, y);
     addText(doc, experience.title, "Times-Roman", 25, 320, y - 5, "black");
     doc
       .font("Courier")
