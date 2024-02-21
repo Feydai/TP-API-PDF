@@ -1,12 +1,12 @@
 import React from "react";
-import "./Navbar.css";
+import "./Header.css";
 
-function Navbar() {
+function Header() {
   return (
     <nav className="navbar">
-      <h1>PDFfly</h1>
+      <h1>CVBuilder</h1>
     </nav>
   );
 }
 
-export default Navbar;
+export default Header;

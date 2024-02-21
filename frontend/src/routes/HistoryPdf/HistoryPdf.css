@@ -3,11 +3,6 @@ body {
   padding: 0;
 }
 
-p,
-div {
-  color: black;
-}
-
 .sidebar {
   position: fixed;
   width: 400px;

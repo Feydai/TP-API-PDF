@@ -46,7 +46,7 @@ function PDFHistory({ onToggle }) {
   return (
     <div>
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        <p className="title">Historique des PDF</p>
+        <p className="title">Historique des CV</p>
         {pdfs.map((pdf) => (
           <PopuItem 
             key={pdf.id} 
