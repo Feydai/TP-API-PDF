@@ -8,4 +8,4 @@ Pour installer ce projet, suivez les étapes suivantes :
 
 1. Clonez le dépôt :
 
-`git clone git@github.com:Feydai/TP-API-PDF.git`
+```git clone git@github.com:Feydai/TP-API-PDF.git```
