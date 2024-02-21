@@ -16,9 +16,9 @@ Pour installer ce projet, suivez les étapes suivantes :
 
 3. Assurez-vous qu'un fichier `.env` existe à la racine du projet. Ce fichier doit contenir toutes les variables d'environnement nécessaires pour exécuter l'application. Si le fichier `.env` n'existe pas, créez-en un avec le contenu suivant dans la racine du projet :
 
-   `DB_HOST=db DB_USER=myuser
-   DB_PASSWORD=myuser123456@!
-   DB_NAME=pdf_database`
+`DB_HOST=db DB_USER=myuser
+DB_PASSWORD=myuser123456@!
+DB_NAME=pdf_database`
 
 ## Utilisation avec Docker Compose
 
@@ -28,4 +28,6 @@ Si vous avez Docker Compose installé, vous pouvez utiliser Docker Compose pour 
 
 ```docker-compose up --build```
 
-Maintenant, l'application devrait être accessible à `http://localhost:3000`.
+Maintenant, l'application devrait être accessible à 
+
+`http://localhost:3000`.
