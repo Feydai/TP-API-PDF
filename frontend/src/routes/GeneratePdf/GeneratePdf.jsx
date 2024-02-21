@@ -18,7 +18,7 @@ function PDFForm() {
   const [experiences, setExperiences] = useState([{ title: "", test: "" }]);
   const [pdf, setPdf] = useState({});
   const [page, setPage] = useState(1);
-  const [template, setTemplate] = useState('template1');
+  const [template, setTemplate] = useState("template1");
 
   const nextPage = () => {
     setPage(page + 1);
@@ -108,82 +108,87 @@ function PDFForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {page === 1 && (
-        <InformationPersonal
-          firstName={firstName}
-          setFirstName={setFirstName}
-          text={text}
-          setText={setText}
-          handleImageUpload={handleImageUpload}
-          imageData={imageData}
-          email={email}
-          setEmail={setEmail}
-          address={address}
-          setAddress={setAddress}
-          city={city}
-          setCity={setCity}
-          postalCode={postalCode}
-          setPostalCode={setPostalCode}
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-          nextPage={nextPage}
-        />
-      )}
-      {page === 2 && (
-        <>
-          {skills.map((skill, index) => (
-            <Skill
-              key={skill.id}
-              skill={skill}
-              index={index}
-              handleSkillChange={handleSkillChange}
-              handleRemoveSkill={handleRemoveSkill}
-              handleAddSkill={handleAddSkill}
-              previousPage={previousPage}
-              nextPage={nextPage}
-            />
-          ))}
-        </>
-      )}
+    <div className="main-container">
+      <form onSubmit={handleSubmit}>
+        {page === 1 && (
+          <InformationPersonal
+            firstName={firstName}
+            setFirstName={setFirstName}
+            text={text}
+            setText={setText}
+            handleImageUpload={handleImageUpload}
+            imageData={imageData}
+            email={email}
+            setEmail={setEmail}
+            address={address}
+            setAddress={setAddress}
+            city={city}
+            setCity={setCity}
+            postalCode={postalCode}
+            setPostalCode={setPostalCode}
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
+            nextPage={nextPage}
+          />
+        )}
+        {page === 2 && (
+          <>
+            {skills.map((skill, index) => (
+              <Skill
+                key={skill.id}
+                skill={skill}
+                index={index}
+                handleSkillChange={handleSkillChange}
+                handleRemoveSkill={handleRemoveSkill}
+                handleAddSkill={handleAddSkill}
+                previousPage={previousPage}
+                nextPage={nextPage}
+              />
+            ))}
+          </>
+        )}
 
-      {page === 3 && (
-        <>
-          {experiences.map((experience, index) => (
-            <Experience
-              key={experience.id}
-              experience={experience}
-              index={index}
-              handleExperienceChange={handleExperienceChange}
-              handleRemoveExperience={handleRemoveExperience}
-              handleAddExperience={handleAddExperience}
-              previousPage={previousPage}
-            />
-          ))}
-          <label>
-            Template:
-            <select value={template} onChange={e => setTemplate(e.target.value)}>
-              <option value="template1">Template 1</option>
-              <option value="template2">Template 2</option>
-            </select>
-          </label>
-          <Button text="Generate PDF" type="submit" />
-          {pdf.pdf_name && (
-            <Button
-              onClick={() => {
-                const link = document.createElement("a");
-                link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
-                link.download = pdf.pdf_name;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }}
-              text="Download PDF"
-            />
-          )}
-        </>
-      )}
-    </form>
+        {page === 3 && (
+          <>
+            {experiences.map((experience, index) => (
+              <Experience
+                key={experience.id}
+                experience={experience}
+                index={index}
+                handleExperienceChange={handleExperienceChange}
+                handleRemoveExperience={handleRemoveExperience}
+                handleAddExperience={handleAddExperience}
+                previousPage={previousPage}
+              />
+            ))}
+            <label>
+              Template:
+              <select
+                value={template}
+                onChange={(e) => setTemplate(e.target.value)}
+              >
+                <option value="template1">Template 1</option>
+                <option value="template2">Template 2</option>
+              </select>
+            </label>
+            <Button text="Generate PDF" type="submit" />
+            {pdf.pdf_name && (
+              <Button
+                onClick={() => {
+                  const link = document.createElement("a");
+                  link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
+                  link.download = pdf.pdf_name;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+                text="Download PDF"
+              />
+            )}
+          </>
+        )}
+      </form>
+    </div>
   );
 }
 

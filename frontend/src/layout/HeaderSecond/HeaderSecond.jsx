@@ -1,8 +1,8 @@
 import React from "react";
-import "./Header.css";
+import "./HeaderSecond.css";
 import { useNavigate } from "react-router-dom";
 
-function Header() {
+function HeaderSecond() {
   const navigate = useNavigate();
 
   function handleClick(e) {
@@ -12,10 +12,10 @@ function Header() {
   }
 
   return (
-    <nav className="navbar">
+    <nav className="navbar-second">
       <h1 onClick={handleClick}>CVBuilder</h1>
     </nav>
   );
 }
 
-export default Header;
+export default HeaderSecond;

@@ -2,6 +2,7 @@ import React from "react";
 import FormField from "../FormField/FormField";
 import Button from "../Button/Button";
 import "./InformationPersonal.css";
+import HeaderSecond from "../../layout/HeaderSecond/HeaderSecond.jsx"
 
 function InformationPersonal({
   firstName,
@@ -24,6 +25,7 @@ function InformationPersonal({
 }) {
   return (
     <>
+    <HeaderSecond />
       <div className="container">
         <FormField className='image' label="Image" type="file" onChange={handleImageUpload} />
         <FormField
