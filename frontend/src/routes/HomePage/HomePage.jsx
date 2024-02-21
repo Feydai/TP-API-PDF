@@ -33,7 +33,7 @@ const HomePage = () => {
             <FontAwesomeIcon icon={faBriefcase} />
           </div>
           <div className="text-content">
-            <h2 className="title-content">Simple et Efficasse</h2>
+            <h2 className="title-content">Simple et Efficace</h2>
             <p className="text-content">
               "Découvrez la simplicité de créer un CV professionnel avec notre
               générateur. Conçu pour être intuitif et efficace, notre outil vous
