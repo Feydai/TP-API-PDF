@@ -1,10 +1,10 @@
 import React from "react";
 import Input from "../Input/Input";
 
-const FormField = ({ label, type, value, onChange, className}) => (
+const FormField = ({ label, type, value, onChange, className, placeHolder}) => (
   <label>
-    {label}:
-    <Input type={type} value={value} onChange={onChange} classeName={className} />
+    {label}
+    <Input placeHolder={placeHolder} type={type} value={value} onChange={onChange} className={className} />
   </label>
 );
 

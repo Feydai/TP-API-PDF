@@ -2,12 +2,17 @@
   width: 100%;
   height: 100vh;
   background: linear-gradient(170deg, #7356e4 50%, white 50%);
-  padding: 10px 0px 0px 200px;
   color: white;
+  padding: 20px 0;
   font-size: 24px;
   z-index: 100;
 }
 
 .title-name {
   cursor: pointer;
+  padding-left: 200px;
+}
+
+.title-text {
+  text-align: center;
 }

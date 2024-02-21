@@ -3,10 +3,12 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  margin: 5px;
+  width: 200px;
 }
 
 .input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #7356e4;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
