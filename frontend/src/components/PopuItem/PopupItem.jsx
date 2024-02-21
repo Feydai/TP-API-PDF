@@ -33,7 +33,8 @@ function PopupItem({ pdf, handleDelete, selectedPdfId, setSelectedPdfId }) {
       <div className="utils">
         <button
           className="popup-button"
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             setSelectedPdfId(pdf.id);
           }}
         >
@@ -43,18 +44,22 @@ function PopupItem({ pdf, handleDelete, selectedPdfId, setSelectedPdfId }) {
           <div className="popup" ref={popupRef}>
             <button
               className="delete-button"
-              onClick={() => handleDelete(pdf.id)}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleDelete(pdf.id);
+              }}
             >
               Supprimer
             </button>
             <button
               className="view-pdf-link"
-              onClick={() =>
+              onClick={(event) => {
+                event.stopPropagation();
                 window.open(
                   `http://localhost:5000/pdf-files/${pdf.pdf_name}`,
                   "_blank"
-                )
-              }
+                );
+              }}
               rel="noopener noreferrer"
             >
               Voir le PDF
@@ -62,7 +67,8 @@ function PopupItem({ pdf, handleDelete, selectedPdfId, setSelectedPdfId }) {
           </div>
         )}
         <button
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             const link = document.createElement("a");
             link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
             link.download = pdf.pdf_name;

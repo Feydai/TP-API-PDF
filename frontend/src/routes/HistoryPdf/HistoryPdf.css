@@ -54,6 +54,7 @@ div {
   font-size: 1.5em;
   margin-bottom: 20px;
   font-weight: bold;
+  padding-bottom: 50px;
 }
 
 .sidebar-open {
@@ -73,7 +74,7 @@ div {
 
 .sidebar-close {
   position: fixed;
-  left: 450px;
+  left: 500px;
   top: 50%;
   background: none;
   border: none;
