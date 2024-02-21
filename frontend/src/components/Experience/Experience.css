@@ -1,4 +1,4 @@
-.skill-container {
+.experience-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,13 +15,7 @@
   max-width: 600px;
 }
 
-.skill-container label {
-  font-weight: bold;
-  margin: 10px 0;
-  color: #333;
-}
-
-.skill-container input {
+.experience-container input {
   margin-left: 55px;
   width: 80%;
   padding: 10px;
@@ -29,18 +23,4 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 16px;
-}
-
-.button-add, .button-pre {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  margin: 10px 0;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
 }

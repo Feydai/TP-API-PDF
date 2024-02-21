@@ -4,6 +4,7 @@ import Experience from "../../components/Experience/Experience";
 import Button from "../../components/Button/Button";
 import InformationPersonal from "../../components/InfomationPersonalPage/InformationPersonal";
 import HeaderSecond from "../../layout/HeaderSecond/HeaderSecond";
+import "./GeneratePdf.css";
 
 function PDFForm() {
   const PDF_URL = "http://localhost:5000/pdf";
@@ -153,6 +154,29 @@ function PDFForm() {
         {page === 3 && (
           <>
             <HeaderSecond text="Vos Expériences" />
+            <div className="container-download">
+              <select
+                value={template}
+                onChange={(e) => setTemplate(e.target.value)}
+              >
+                <option value="template1">Modèle 1</option>
+                <option value="template2">Modèle 2</option>
+              </select>
+              <Button text="Générer le PDF" type="submit" />
+              {pdf.pdf_name && (
+                <Button
+                  onClick={() => {
+                    const link = document.createElement("a");
+                    link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
+                    link.download = pdf.pdf_name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                  text="Télécharger le PDF"
+                />
+              )}
+            </div>
             {experiences.map((experience, index) => (
               <Experience
                 key={experience.id}
@@ -164,30 +188,6 @@ function PDFForm() {
                 previousPage={previousPage}
               />
             ))}
-            <label>
-              Template:
-              <select
-                value={template}
-                onChange={(e) => setTemplate(e.target.value)}
-              >
-                <option value="template1">Template 1</option>
-                <option value="template2">Template 2</option>
-              </select>
-            </label>
-            <Button text="Generate PDF" type="submit" />
-            {pdf.pdf_name && (
-              <Button
-                onClick={() => {
-                  const link = document.createElement("a");
-                  link.href = `http://localhost:5000/pdf/pdf-download/${pdf.pdf_name}`;
-                  link.download = pdf.pdf_name;
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                }}
-                text="Download PDF"
-              />
-            )}
           </>
         )}
       </form>
